@@ -1,0 +1,3514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESSU Student Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Simplified CSS - removed complex gradients, animations, and shadows */
+        :root {
+            --primary: #138808;
+            --primary-light: #4CAF50;
+            --primary-dark: #0A5C08;
+            --light: #ffffff;
+            --dark: #212529;
+            --success: #138808;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --info: #2196F3;
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
+            --sidebar-width: 280px;
+            --header-height: 70px;
+            --border-radius: 8px;
+            --transition: all 0.2s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Login Screen Styles */
+        #login-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+            background: var(--primary);
+        }
+
+        .login-container {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 450px;
+            padding: 2rem;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .login-header h1 {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            font-size: 1.6rem;
+        }
+
+        .login-header p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .login-form .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .login-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.9rem;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+        }
+
+        .login-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--primary);
+            color: var(--light);
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .login-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Registration Form Styles */
+        #registration-form {
+            display: none;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--primary);
+            color: var(--light);
+            padding: 1.5rem 0;
+            height: 100vh;
+            position: fixed;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+            margin-right: 0.8rem;
+            background: var(--light);
+            padding: 0.5rem;
+            border-radius: 8px;
+            color: var(--primary);
+        }
+
+        .logo h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            color: var(--light);
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid var(--light);
+        }
+
+        .nav-links i {
+            margin-right: 0.8rem;
+            font-size: 1.1rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 1.5rem;
+        }
+
+        /* Header Styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            background: var(--light);
+            padding: 1.2rem 2rem;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--gray-light);
+        }
+
+        .header-title h2 {
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 1.4rem;
+        }
+
+        .header-title p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        .notifications {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notifications i {
+            font-size: 1.3rem;
+            color: var(--gray);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--primary);
+            color: var(--light);
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            border: 1px solid var(--gray-light);
+            border-top: 4px solid var(--primary);
+        }
+
+        .stat-card.warning {
+            border-top-color: var(--warning);
+        }
+
+        .stat-card.success {
+            border-top-color: var(--success);
+        }
+
+        .stat-card.danger {
+            border-top-color: var(--danger);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-title {
+            font-size: 0.85rem;
+            color: var(--gray);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+        }
+
+        .stat-card.warning .stat-icon {
+            background: var(--warning);
+        }
+
+        .stat-card.success .stat-icon {
+            background: var(--success);
+        }
+
+        .stat-card.danger .stat-icon {
+            background: var(--danger);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .stat-card.warning .stat-value {
+            color: var(--warning);
+        }
+
+        .stat-card.success .stat-value {
+            color: var(--success);
+        }
+
+        .stat-card.danger .stat-value {
+            color: var(--danger);
+        }
+
+        .stat-change {
+            font-size: 0.8rem;
+            color: var(--success);
+            display: flex;
+            align-items: center;
+        }
+
+        .stat-change.down {
+            color: var(--danger);
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--gray-light);
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-header {
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid var(--gray-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(248, 249, 250, 0.7);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title i {
+            margin-right: 0.8rem;
+            color: var(--primary);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        /* Table Styles */
+        .table-responsive {
+            overflow-x: auto;
+            border-radius: var(--border-radius);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 0.8rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        th {
+            background-color: rgba(248, 249, 250, 0.7);
+            font-weight: 600;
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        tr:hover {
+            background-color: rgba(248, 249, 250, 0.7);
+        }
+
+        /* Status Indicators */
+        .status {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-enrolled {
+            background-color: rgba(19, 136, 8, 0.1);
+            color: var(--success);
+        }
+
+        .status-waitlist {
+            background-color: rgba(255, 152, 0, 0.1);
+            color: var(--warning);
+        }
+
+        .status-pending {
+            background-color: rgba(108, 117, 125, 0.1);
+            color: var(--gray);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+
+        .btn i {
+            margin-right: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--light);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: var(--light);
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: var(--light);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: var(--light);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--gray-light);
+            color: var(--dark);
+        }
+
+        .btn-sm {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.75rem;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--gray-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .tab {
+            padding: 0.8rem 1.2rem;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            font-weight: 600;
+            color: var(--gray);
+            transition: var(--transition);
+        }
+
+        .tab.active {
+            border-bottom: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .tab:hover {
+            color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Subtab Content */
+        .subtab-content {
+            display: none;
+        }
+        
+        .subtab-content.active {
+            display: block;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin: 1.2rem 0;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background-color: var(--gray-light);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: var(--gray);
+            font-size: 0.85rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--gray-light);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 500px;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            padding: 1.2rem 1.5rem;
+            background: var(--primary);
+            color: var(--light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-footer {
+            padding: 1.2rem 1.5rem;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.8rem;
+        }
+
+        .close {
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.3rem;
+            cursor: pointer;
+        }
+
+        /* Alert */
+        .alert {
+            padding: 0.8rem 1rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            border-left: 4px solid;
+        }
+
+        .alert-success {
+            background-color: rgba(19, 136, 8, 0.1);
+            color: var(--success);
+            border-left-color: var(--success);
+        }
+
+        .alert-danger {
+            background-color: rgba(244, 67, 54, 0.1);
+            color: var(--danger);
+            border-left-color: var(--danger);
+        }
+
+        .alert-info {
+            background-color: rgba(33, 150, 243, 0.1);
+            color: var(--info);
+            border-left-color: var(--info);
+        }
+
+        .alert i {
+            margin-right: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        /* Course Registration Styles */
+        .course-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .waitlist-position {
+            font-weight: bold;
+            color: var(--warning);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: var(--gray);
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--gray-light);
+        }
+        
+        .credit-summary {
+            background: rgba(19, 136, 8, 0.1);
+            padding: 1.2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .conflict-warning {
+            color: var(--danger);
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .conflict-warning i {
+            margin-right: 0.3rem;
+        }
+
+        /* Year Filter and Course Catalog Styles */
+        .year-filter {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.2rem;
+            flex-wrap: wrap;
+        }
+        
+        .year-btn {
+            padding: 0.4rem 0.8rem;
+            background: var(--gray-light);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .year-btn.active {
+            background: var(--primary);
+            color: var(--light);
+        }
+        
+        .course-year-section {
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+        
+        .year-header {
+            background: var(--primary);
+            color: var(--light);
+            padding: 0.8rem 1.2rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .year-content {
+            padding: 1.2rem;
+            background: var(--light);
+        }
+        
+        .semester-section {
+            margin-bottom: 1.2rem;
+        }
+        
+        .semester-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .course-card {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            border: 1px solid var(--gray-light);
+            border-left: 3px solid var(--primary);
+        }
+        
+        .course-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.8rem;
+        }
+        
+        .course-id {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1rem;
+        }
+        
+        .course-credits {
+            background: var(--primary);
+            color: var(--light);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .course-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .course-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+            font-size: 0.85rem;
+        }
+        
+        .course-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gray);
+        }
+        
+        .course-detail i {
+            width: 16px;
+            color: var(--primary);
+        }
+        
+        .seats-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        .seats-available {
+            color: var(--success);
+            font-weight: 600;
+        }
+        
+        .seats-full {
+            color: var(--danger);
+            font-weight: 600;
+        }
+        
+        .prerequisites {
+            font-size: 0.75rem;
+            color: var(--gray);
+            margin-top: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 70px;
+                overflow: visible;
+            }
+            
+            .logo h1, .nav-links span {
+                display: none;
+            }
+            
+            .logo {
+                justify-content: center;
+                padding: 0 0 1.5rem;
+            }
+            
+            .logo i {
+                margin-right: 0;
+                font-size: 1.8rem;
+            }
+            
+            .nav-links a {
+                justify-content: center;
+                padding: 0.8rem;
+            }
+            
+            .nav-links i {
+                margin-right: 0;
+                font-size: 1.3rem;
+            }
+            
+            .main-content {
+                margin-left: 70px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .user-info {
+                align-self: flex-end;
+            }
+            
+            .credit-summary {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+            
+            .card-body {
+                padding: 1.2rem;
+            }
+            
+            .course-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .course-card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .course-actions {
+                width: 100%;
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .main-content {
+                padding: 1rem;
+            }
+            
+            .header {
+                padding: 1rem;
+            }
+            
+            .card-header {
+                padding: 1rem 1.2rem;
+            }
+            
+            .modal-content {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen">
+        <div class="login-container">
+            <div class="login-header">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>ESSU Arteche Portal</h1>
+                <p>Sign in to access your student account</p>
+            </div>
+            <form class="login-form" id="login-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="student@essuarteche.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="login-btn">Sign In</button>
+            </form>
+            <div class="login-footer">
+                <p>Don't have an account? <a href="#" id="register-link">Register here</a></p>
+            </div>
+            
+            <!-- Registration Form -->
+            <form class="login-form" id="registration-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="reg-first-name">First Name</label>
+                        <input type="text" id="reg-first-name" placeholder="Enter your first name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-last-name">Last Name</label>
+                        <input type="text" id="reg-last-name" placeholder="Enter your last name" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="reg-student-id">Student ID</label>
+                    <input type="text" id="reg-student-id" placeholder="Enter your student ID" required>
+                    <div id="student-id-error" class="alert alert-danger" style="display: none; margin-top: 0.5rem;">
+                        <i class="fas fa-exclamation-circle"></i> This Student ID is already registered.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="reg-email">Email</label>
+                    <input type="email" id="reg-email" placeholder="student@essuarteche.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-password">Password</label>
+                    <input type="password" id="reg-password" placeholder="Create a password" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-confirm-password">Confirm Password</label>
+                    <input type="password" id="reg-confirm-password" placeholder="Confirm your password" required>
+                    <div id="password-error" class="alert alert-danger" style="display: none; margin-top: 0.5rem;">
+                        <i class="fas fa-exclamation-circle"></i> Passwords do not match.
+                    </div>
+                </div>
+                <button type="submit" class="login-btn">Create Account</button>
+            </form>
+            <div class="login-footer" id="back-to-login" style="display: none;">
+                <p>Already have an account? <a href="#" id="login-link">Sign in here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application (Hidden until login) -->
+    <div id="main-app" style="display: none;">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>Essu Portal</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" class="active" data-tab="dashboard"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+                <li><a href="#" data-tab="courses"><i class="fas fa-book-open"></i> <span>Course Registration</span></a></li>
+                <li><a href="#" data-tab="grades"><i class="fas fa-chart-bar"></i> <span>Grades & Records</span></a></li>
+                <li><a href="#" data-tab="financial"><i class="fas fa-credit-card"></i> <span>Financial Information</span></a></li>
+                <li><a href="#" data-tab="profile"><i class="fas fa-user"></i> <span>Profile</span></a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+                <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <div class="header-title">
+                    <h2>Student Dashboard</h2>
+                    <p id="welcome-message">Welcome back! Here's your academic overview.</p>
+                </div>
+                <div class="user-info">
+                    <div class="notifications" id="notificationBtn">
+                        <i class="far fa-bell"></i>
+                        <div class="notification-badge">3</div>
+                    </div>
+                    <div class="user-avatar" id="user-avatar">SU</div>
+                </div>
+            </div>
+
+            <!-- Dashboard Tab -->
+            <div id="dashboard" class="tab-content active">
+                <!-- Stats Cards -->
+                <div class="dashboard-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-title">CURRENT GWA</div>
+                            <div class="stat-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value" id="current-gwa">1.75</div>
+                        <div class="stat-change">
+                            <i class="fas fa-arrow-up"></i> 0.15 from last semester
+                        </div>
+                    </div>
+
+                    <div class="stat-card success">
+                        <div class="stat-header">
+                            <div class="stat-title">CREDITS COMPLETED</div>
+                            <div class="stat-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value" id="credits-completed">90/120</div>
+                        <div class="progress-container">
+                            <div class="progress-info">
+                                <span>Progress</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card warning">
+                        <div class="stat-header">
+                            <div class="stat-title">CURRENT COURSES</div>
+                            <div class="stat-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value" id="current-courses">4</div>
+                        <div class="stat-change">
+                            12 credit hours this semester
+                        </div>
+                    </div>
+
+                    <div class="stat-card danger">
+                        <div class="stat-header">
+                            <div class="stat-title">BALANCE DUE</div>
+                            <div class="stat-icon">
+                                <i class="fas fa-peso-sign"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value" id="balance-due">₱1,250</div>
+                        <div class="stat-change down">
+                            Due by Oct 15, 2023
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Courses and Notifications -->
+                <div class="dashboard-grid" style="grid-template-columns: 2fr 1fr;">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title"><i class="fas fa-book"></i> Current Courses</div>
+                            <button class="btn btn-outline btn-sm" id="viewAllCourses">View All</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="current-courses-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Course</th>
+                                            <th>Instructor</th>
+                                            <th>Schedule</th>
+                                            <th>Progress</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Courses will be populated by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title"><i class="fas fa-bell"></i> Notifications</div>
+                        </div>
+                        <div class="card-body" id="notifications-list">
+                            <!-- Notifications will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Registration Tab -->
+            <div id="courses" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title"><i class="fas fa-book-open"></i> Course Registration</div>
+                        <div>
+                            <span class="status status-enrolled" id="registration-status">Registration Open</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="tabs">
+                            <div class="tab active" data-subtab="available">Available Courses</div>
+                            <div class="tab" data-subtab="enrolled">My Courses</div>
+                            <div class="tab" data-subtab="waitlist">Waitlist</div>
+                        </div>
+                        
+                        <!-- Credit Summary -->
+                        <div class="credit-summary">
+                            <div>
+                                <strong>Current Credits:</strong> <span id="current-credits">0</span> / <span id="max-credits">18</span>
+                            </div>
+                            <div>
+                                <strong>Waitlisted Courses:</strong> <span id="waitlist-total">0</span>
+                            </div>
+                        </div>
+
+                        <!-- Available Courses -->
+                        <div id="available" class="subtab-content active">
+                            <div class="alert alert-success">
+                                <i class="fas fa-info-circle"></i> You can register for up to 18 credit hours this semester.
+                            </div>
+                            
+                            <!-- Year Filter -->
+                            <div class="year-filter">
+                                <button class="year-btn active" data-year="all">All Years</button>
+                                <button class="year-btn" data-year="1">First Year</button>
+                                <button class="year-btn" data-year="2">Second Year</button>
+                                <button class="year-btn" data-year="3">Third Year</button>
+                                <button class="year-btn" data-year="4">Fourth Year</button>
+                            </div>
+                            
+                            <!-- Course Catalog by Year -->
+                            <div id="course-catalog">
+                                <!-- Courses will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- My Courses -->
+                        <div id="enrolled" class="subtab-content">
+                            <div class="alert alert-success">
+                                <i class="fas fa-check-circle"></i> You are currently enrolled in <span id="enrolled-count">0</span> courses.
+                            </div>
+                            <div id="enrolled-empty" class="empty-state" style="display: none;">
+                                <i class="fas fa-book"></i>
+                                <h3>No Enrolled Courses</h3>
+                                <p>You haven't enrolled in any courses yet. Browse available courses to get started.</p>
+                            </div>
+                            <div class="table-responsive" id="enrolled-table-container">
+                                <table id="enrolled-courses-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Course ID</th>
+                                            <th>Course Name</th>
+                                            <th>Instructor</th>
+                                            <th>Schedule</th>
+                                            <th>Credits</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Enrolled courses will be populated by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Waitlist -->
+                        <div id="waitlist" class="subtab-content">
+                            <div class="alert alert-info">
+                                <i class="fas fa-clock"></i> You are on the waitlist for <span id="waitlist-count">0</span> courses.
+                            </div>
+                            <div id="waitlist-empty" class="empty-state" style="display: none;">
+                                <i class="fas fa-hourglass-half"></i>
+                                <h3>No Waitlisted Courses</h3>
+                                <p>You're not on any waitlists. If a course is full, you can join the waitlist.</p>
+                            </div>
+                            <div class="table-responsive" id="waitlist-table-container">
+                                <table id="waitlist-courses-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Course ID</th>
+                                            <th>Course Name</th>
+                                            <th>Instructor</th>
+                                            <th>Schedule</th>
+                                            <th>Credits</th>
+                                            <th>Waitlist Position</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Waitlisted courses will be populated by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grades Tab -->
+            <div id="grades" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title"><i class="fas fa-chart-bar"></i> Grades & Records</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="tabs">
+                            <div class="tab active" data-subtab="current">Current Grades</div>
+                            <div class="tab" data-subtab="transcript">Academic Transcript</div>
+                            <div class="tab" data-subtab="standing">Academic Standing</div>
+                        </div>
+
+                        <!-- Current Grades -->
+                        <div id="current" class="subtab-content active">
+                            <div class="table-responsive">
+                                <table id="current-grades-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Course ID</th>
+                                            <th>Course Name</th>
+                                            <th>Instructor</th>
+                                            <th>Midterm Grade</th>
+                                            <th>Final Grade</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Grades will be populated by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Academic Transcript -->
+                        <div id="transcript" class="subtab-content">
+                            <div class="table-responsive">
+                                <table id="transcript-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Semester</th>
+                                            <th>Course</th>
+                                            <th>Course Title</th>
+                                            <th>Credits</th>
+                                            <th>Grade</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Transcript data will be populated by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Academic Standing -->
+                        <div id="standing" class="subtab-content">
+                            <div class="form-group">
+                                <label>Current GWA (Grade Weighted Average):</label>
+                                <input type="text" id="gwa-value" value="3.15" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Credits Completed:</label>
+                                <input type="text" id="credits-completed-value" value="90" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Credits Required for Graduation:</label>
+                                <input type="text" value="120" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Academic Standing:</label>
+                                <input type="text" id="academic-standing" value="Good Standing" readonly class="status-enrolled" style="border: none; background: transparent; font-weight: bold;">
+                            </div>
+                            <div class="form-group">
+                                <label>Expected Graduation:</label>
+                                <input type="text" value="Spring 2024" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Financial Information Tab -->
+            <div id="financial" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title"><i class="fas fa-credit-card"></i> Financial Information</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="tabs">
+                            <div class="tab active" data-subtab="invoice">Tuition Invoice</div>
+                            <div class="tab" data-subtab="payment">Make Payment</div>
+                            <div class="tab" data-subtab="history">Payment History</div>
+                        </div>
+
+                        <!-- Tuition Invoice -->
+                        <div id="invoice" class="subtab-content active">
+                            <div class="table-responsive">
+                                <table id="invoice-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Description</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Invoice data will be populated by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div style="margin-top: 1rem;">
+                                <p><strong>Due Date:</strong> <span id="due-date">October 15, 2023</span></p>
+                                <p><strong>Payment Status:</strong> <span id="payment-status" class="status status-pending">Partial Payment</span></p>
+                            </div>
+                            <button class="btn btn-primary" id="make-payment-btn" style="margin-top: 1rem;">
+                                <i class="fas fa-credit-card"></i> Make Payment
+                            </button>
+                        </div>
+
+                        <!-- Make Payment -->
+                        <div id="payment" class="subtab-content">
+                            <div class="form-group">
+                                <label>Amount to Pay:</label>
+                                <input type="text" id="payment-amount" value="₱1,250.00" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Payment Method:</label>
+                                <select id="payment-method">
+                                    <option>Credit/Debit Card</option>
+                                    <option>Bank Transfer</option>
+                                    <option>Payment Plan</option>
+                                </select>
+                            </div>
+                            <div id="card-details">
+                                <div class="form-group">
+                                    <label>Card Number:</label>
+                                    <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
+                                </div>
+                                <div style="display: flex; gap: 1rem;">
+                                    <div class="form-group" style="flex: 1;">
+                                        <label>Expiry Date:</label>
+                                        <input type="text" id="expiry-date" placeholder="MM/YY">
+                                    </div>
+                                    <div class="form-group" style="flex: 1;">
+                                        <label>CVV:</label>
+                                        <input type="text" id="cvv" placeholder="123">
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-success" id="submit-payment">
+                                <i class="fas fa-lock"></i> Submit Payment
+                            </button>
+                        </div>
+
+                        <!-- Payment History -->
+                        <div id="history" class="subtab-content">
+                            <div class="table-responsive">
+                                <table id="payment-history-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Description</th>
+                                            <th>Amount</th>
+                                            <th>Method</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Payment history will be populated by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Tab -->
+            <div id="profile" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title"><i class="fas fa-user"></i> Student Profile</div>
+                    </div>
+                    <div class="card-body">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem;">
+                            <div class="form-group">
+                                <label>Student ID:</label>
+                                <input type="text" id="student-id" value="S12345678" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Program:</label>
+                                <input type="text" id="program" value="Bachelor of Science in Computer Science" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>First Name:</label>
+                                <input type="text" id="first-name" value="">
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name:</label>
+                                <input type="text" id="last-name" value="">
+                            </div>
+                            <div class="form-group">
+                                <label>Email:</label>
+                                <input type="email" id="profile-email" value="">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone:</label>
+                                <input type="text" id="phone" value="(555) 123-4567">
+                            </div>
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label>Address:</label>
+                                <input type="text" id="address" value="123 University Ave, City, State 12345">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" id="update-profile" style="margin-top: 1.5rem;">
+                            <i class="fas fa-save"></i> Update Profile
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                <p>University Student Portal &copy; 2023 | For assistance, contact the IT Help Desk at help@university.edu or (555) 555-HELP</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Notifications Modal -->
+    <div class="modal" id="notifications-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Notifications</h3>
+                <button class="close">&times;</button>
+            </div>
+            <div class="modal-body" id="notifications-modal-body">
+                <!-- Notifications will be populated by JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="mark-all-read">Mark All as Read</button>
+                <button class="btn btn-primary" id="close-notifications">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Course Details Modal -->
+    <div class="modal" id="course-details-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="course-modal-title">Course Details</h3>
+                <button class="close">&times;</button>
+            </div>
+            <div class="modal-body" id="course-modal-body">
+                <!-- Course details will be populated by JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="enroll-course">Enroll</button>
+                <button class="btn btn-outline" id="close-course-details">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Confirmation Modal -->
+    <div class="modal" id="payment-confirmation-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Payment Confirmation</h3>
+                <button class="close">&times;</button>
+            </div>
+            <div class="modal-body" id="payment-confirmation-body">
+                <!-- Payment details will be populated by JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" id="confirm-payment">Confirm Payment</button>
+                <button class="btn btn-outline" id="cancel-payment">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // All JavaScript code remains exactly the same as in the original
+        // Sample Data (for demo purposes) - MODIFIED TO REMOVE HARDCODED NAME
+        const sampleData = {
+            student: {
+                id: "",
+                firstName: "", // Will be populated from login
+                lastName: "", // Will be populated from login
+                email: "", // Will be populated from login
+                phone: "+63-",
+                address: "",
+                program: "Bachelor of Science in Computer Science",
+                gwa: 1.75,
+                creditsCompleted: 90,
+                creditsRequired: 120,
+                academicStanding: "Good Standing",
+                expectedGraduation: "Spring 2024"
+            },
+            currentCourses: [
+                {
+                    id: "CS301",
+                    name: "Algorithms",
+                    instructor: "Emiliano A. Borata Jr.",
+                    schedule: "Mon/Wed 2:00-3:30 PM",
+                    credits: 3,
+                    progress: 65,
+                    midtermGrade: "B+",
+                    finalGrade: "-"
+                },
+                {
+                    id: "CS305",
+                    name: "Database Systems",
+                    instructor: "Anthony S, Morallos",
+                    schedule: "Tue/Thu 11:00-12:30 PM",
+                    credits: 3,
+                    progress: 45,
+                    midtermGrade: "A-",
+                    finalGrade: "-"
+                },
+                {
+                    id: "MATH301",
+                    name: "Linear Algebra",
+                    instructor: "Randy L. Jataas",
+                    schedule: "Mon/Wed/Fri 1:00-2:00 PM",
+                    credits: 3,
+                    progress: 70,
+                    midtermGrade: "B",
+                    finalGrade: "-"
+                }
+            ],
+            availableCourses: [
+                // First Year Courses
+                {
+                    id: "COMP 111",
+                    name: "Introduction to Computing",
+                    instructor: "Anthony S. Morallos",
+                    schedule: "Mon/Wed 10:00-11:30",
+                    credits: 3,
+                    seats: { available: 15, total: 30 },
+                    prerequisites: ["None"],
+                    description: "Fundamental concepts of computing and computer systems.",
+                    year: 1,
+                    semester: 1
+                },
+                {
+                    id: "COMP 112",
+                    name: "Computer Programming 1",
+                    instructor: "Juderick P. Voces",
+                    schedule: "Tue/Thu 13:00-14:30",
+                    credits: 3,
+                    seats: { available: 10, total: 25 },
+                    prerequisites: ["None"],
+                    description: "Introduction to programming using Python.",
+                    year: 1,
+                    semester: 1
+                },
+                {
+                    id: "IT 111",
+                    name: "Discrete Mathematics",
+                    instructor: "Emiliano A. Borata Jr.",
+                    schedule: "Mon/Wed/Fri 09:00-10:00",
+                    credits: 3,
+                    seats: { available: 20, total: 40 },
+                    prerequisites: ["None"],
+                    description: "Fundamental algebraic concepts and applications.",
+                    year: 1,
+                    semester: 1
+                },
+                {
+                    id: "SocSci",
+                    name: "Understanding the Self",
+                    instructor: "Randy L. Jataas",
+                    schedule: "Tue/Thu 10:00-11:30",
+                    credits: 3,
+                    seats: { available: 18, total: 35 },
+                    prerequisites: ["None"],
+                    description: "Development of English communication skills.",
+                    year: 1,
+                    semester: 1
+                },
+                {
+                    id: "Math 111",
+                    name: "Mathematics in the Modern World",
+                    instructor: "Juderick P. Voces",
+                    schedule: "Mon/Wed 13:00-14:30",
+                    credits: 3,
+                    seats: { available: 12, total: 25 },
+                    prerequisites: ["None"],
+                    description: "Advanced programming concepts and data structures.",
+                    year: 1,
+                    semester: 1
+                },
+                {
+                    id: "Engl 111",
+                    name: "Purposive Communication",
+                    instructor: "Emiliano A. Borata Jr.",
+                    schedule: "Tue/Thu 15:00-16:30",
+                    credits: 3,
+                    seats: { available: 15, total: 30 },
+                    prerequisites: ["None"],
+                    description: "Mathematical foundations for computer science.",
+                    year: 1,
+                    semester: 1
+                },
+                {
+                    id: "GE 113",
+                    name: "Living in the IT Era",
+                    instructor: "Anthony S. Morallos",
+                    schedule: "Mon/Wed/Fri 11:00-12:00",
+                    credits: 3,
+                    seats: { available: 22, total: 40 },
+                    prerequisites: ["None"],
+                    description: "Introduction to differential and integral calculus.",
+                    year: 1,
+                    semester: 1
+                },
+                {
+                    id: "PE 111",
+                    name: "Self-Testing Activities, Health & Values",
+                    instructor: "Randy L. Jataas",
+                    schedule: "Tue/Thu 08:00-09:30",
+                    credits: 2,
+                    seats: { available: 10, total: 35 },
+                    prerequisites: ["None"],
+                    description: "Advanced English communication and writing skills.",
+                    year: 1,
+                    semester: 1
+                },
+                {
+                    id: "NSTP1",
+                    name: "National Service Training Program 1",
+                    instructor: "Emiliano A. Borata Jr.",
+                    schedule: "Tue/Thu 08:00-09:30",
+                    credits: 3,
+                    seats: { available: 10, total: 35 },
+                    prerequisites: ["None"],
+                    description: "Advanced English communication and writing skills.",
+                    year: 1,
+                    semester: 1
+                },
+                {
+                    id: "IT 121",
+                    name: "Fundamental of Database Systems",
+                    instructor: "Anthony S. Morallos",
+                    schedule: "Mon/Wed 10:00-11:30",
+                    credits: 3,
+                    seats: { available: 15, total: 30 },
+                    prerequisites: ["IT 111"],
+                    description: "Fundamental concepts of computing and computer systems.",
+                    year: 1,
+                    semester: 1
+                },
+                {
+                    id: "COMP 121",
+                    name: "Computer Programming 2",
+                    instructor: "Juderick P. Voces",
+                    schedule: "Tue/Thu 13:00-14:30",
+                    credits: 3,
+                    seats: { available: 10, total: 25 },
+                    prerequisites: ["COMP 112"],
+                    description: "Introduction to programming using Python.",
+                    year: 1,
+                    semester: 1
+                },
+                {
+                    id: "COMP 122",
+                    name: "Data Structures and Algorithms",
+                    instructor: "Emiliano A. Borata Jr.",
+                    schedule: "Mon/Wed/Fri 09:00-10:00",
+                    credits: 3,
+                    seats: { available: 20, total: 40 },
+                    prerequisites: ["COMP 112"],
+                    description: "Fundamental algebraic concepts and applications.",
+                    year: 1,
+                    semester: 1
+                },
+                {
+                    id: "Sci 122",
+                    name: "Science, Technology and Society",
+                    instructor: "Randy L. Jataas",
+                    schedule: "Tue/Thu 10:00-11:30",
+                    credits: 3,
+                    seats: { available: 18, total: 35 },
+                    prerequisites: [],
+                    description: "Development of English communication skills.",
+                    year: 1,
+                    semester: 1
+                },
+                {
+                    id: "HUM 121",
+                    name: "Art Appreciation",
+                    instructor: "Juderick P. Voces",
+                    schedule: "Mon/Wed 13:00-14:30",
+                    credits: 3,
+                    seats: { available: 12, total: 25 },
+                    prerequisites: ["None"],
+                    description: "Advanced programming concepts and data structures.",
+                    year: 1,
+                    semester: 2
+                },
+                {
+                    id: "GE 121",
+                    name: "Great Books",
+                    instructor: "Emiliano A. Borata Jr.",
+                    schedule: "Tue/Thu 15:00-16:30",
+                    credits: 3,
+                    seats: { available: 15, total: 30 },
+                    prerequisites: ["None"],
+                    description: "Mathematical foundations for computer science.",
+                    year: 1,
+                    semester: 2
+                },
+                {
+                    id: "PE 121",
+                    name: "Rhythmic Activities",
+                    instructor: "Anthony S. Morallos",
+                    schedule: "Mon/Wed/Fri 11:00-12:00",
+                    credits: 2,
+                    seats: { available: 22, total: 40 },
+                    prerequisites: ["None"],
+                    description: "Introduction to differential and integral calculus.",
+                    year: 1,
+                    semester: 2
+                },
+                {
+                    id: "NSTP2",
+                    name: "National Service Training Program II",
+                    instructor: "Emiliano A. Borata Jr.",
+                    schedule: "Tue/Thu 08:00-09:30",
+                    credits: 3,
+                    seats: { available: 10, total: 35 },
+                    prerequisites: ["NSTP 111"],
+                    description: "Advanced English communication and writing skills.",
+                    year: 1,
+                    semester: 2
+                },
+                
+                // Second Year Courses
+                {
+                    id: "IT 211",
+                    name: "Integrative Programming and Technologies",
+                    instructor: "Anthony S. Morallos",
+                    schedule: "Mon/Wed 10:00-11:30",
+                    credits: 3,
+                    seats: { available: 8, total: 25 },
+                    prerequisites: ["COMP 121"],
+                    description: "Implementation and analysis of data structures and algorithms.",
+                    year: 2,
+                    semester: 1
+                },
+                {
+                    id: "IT 212",
+                    name: "Fundamentals of Human Computer Interaction",
+                    instructor: "Juderick P. Voces",
+                    schedule: "Tue/Thu 13:00-14:30",
+                    credits: 3,
+                    seats: { available: 5, total: 25 },
+                    prerequisites: ["COMP 121"],
+                    description: "Principles of object-oriented programming using Java.",
+                    year: 2,
+                    semester: 1
+                },
+                {
+                    id: "COMP 211",
+                    name: "Information Management",
+                    instructor: "Emiliano A. Borata Jr.",
+                    schedule: "Mon/Wed/Fri 09:00-10:00",
+                    credits: 3,
+                    seats: { available: 12, total: 30 },
+                    prerequisites: ["COMP 121"],
+                    description: "Computer system organization and architecture fundamentals.",
+                    year: 2,
+                    semester: 1
+                },
+                {
+                    id: "COMP 212",
+                    name: "Obeject Oriented Programming",
+                    instructor: "Randy L. Jataas",
+                    schedule: "Tue/Thu 10:00-11:30",
+                    credits: 3,
+                    seats: { available: 15, total: 35 },
+                    prerequisites: ["COMP 121"],
+                    description: "Advanced topics in integral calculus and series.",
+                    year: 2,
+                    semester: 1
+                },
+                {
+                    id: "SocSci 212",
+                    name: "Readings in Philippine History",
+                    instructor: "Anthony S. Morallos",
+                    schedule: "Mon/Wed 13:00-14:30",
+                    credits: 3,
+                    seats: { available: 10, total: 25 },
+                    prerequisites: ["None"],
+                    description: "Design and implementation of database systems.",
+                    year: 2,
+                    semester: 1
+                },
+                {
+                    id: "SocSci 212",
+                    name: "Ethics",
+                    instructor: "Juderick P. Voces",
+                    schedule: "Tue/Thu 15:00-16:30",
+                    credits: 3,
+                    seats: { available: 8, total: 25 },
+                    prerequisites: ["None"],
+                    description: "Front-end and back-end web development technologies.",
+                    year: 2,
+                    semester: 1
+                },
+                {
+                    id: "PE 211",
+                    name: "Games and Sports",
+                    instructor: "Emiliano A. Borata Jr.",
+                    schedule: "Mon/Wed/Fri 11:00-12:00",
+                    credits: 2,
+                    seats: { available: 12, total: 30 },
+                    prerequisites: ["PE 121"],
+                    description: "Principles and design of operating systems.",
+                    year: 2,
+                    semester: 1
+                },
+                {
+                    id: "IT 221",
+                    name: "Fundamentals of Systems Integration and Architecture",
+                    instructor: "Randy L. Jataas",
+                    schedule: "Tue/Thu 08:00-09:30",
+                    credits: 3,
+                    seats: { available: 18, total: 35 },
+                    prerequisites: ["IT 211"],
+                    description: "Vector spaces, matrices, and linear transformations.",
+                    year: 2,
+                    semester: 2
+                },
+                {
+                    id: "IT 222",
+                    name: "Fundamentals of Information Assurance and Security",
+                    instructor: "Anthony S. Morallos",
+                    schedule: "Mon/Wed 10:00-11:30",
+                    credits: 3,
+                    seats: { available: 8, total: 25 },
+                    prerequisites: ["COMP 121/COMP 212"],
+                    description: "Implementation and analysis of data structures and algorithms.",
+                    year: 2,
+                    semester: 2
+                },
+                {
+                    id: "IT 223",
+                    name: "Systems and Anminstration and Maintenance",
+                    instructor: "Juderick P. Voces",
+                    schedule: "Tue/Thu 13:00-14:30",
+                    credits: 3,
+                    seats: { available: 5, total: 25 },
+                    prerequisites: ["IT 221"],
+                    description: "Principles of object-oriented programming using Java.",
+                    year: 2,
+                    semester: 2
+                },
+                {
+                    id: "COMP 221",
+                    name: "Application Development and Emerging Technologies",
+                    instructor: "Emiliano A. Borata Jr.",
+                    schedule: "Mon/Wed/Fri 09:00-10:00",
+                    credits: 3,
+                    seats: { available: 12, total: 30 },
+                    prerequisites: ["COMP 212"],
+                    description: "Computer system organization and architecture fundamentals.",
+                    year: 2,
+                    semester: 2
+                },
+                {
+                    id: "SocSci 221",
+                    name: "Lifef and Works of Jose Rizal",
+                    instructor: "Anthony S. Morallos",
+                    schedule: "Mon/Wed 13:00-14:30",
+                    credits: 3,
+                    seats: { available: 10, total: 25 },
+                    prerequisites: ["None"],
+                    description: "Design and implementation of database systems.",
+                    year: 2,
+                    semester: 2
+                },
+                {
+                    id: "SocSci 222",
+                    name: "The Contemporary World",
+                    instructor: "Juderick P. Voces",
+                    schedule: "Tue/Thu 15:00-16:30",
+                    credits: 3,
+                    seats: { available: 8, total: 25 },
+                    prerequisites: ["None"],
+                    description: "Front-end and back-end web development technologies.",
+                    year: 2,
+                    semester: 2
+                },
+                {
+                    id: "SocSci 223",
+                    name: "Culture and Society in Southest Asia",
+                    instructor: "Juderick P. Voces",
+                    schedule: "Tue/Thu 15:00-16:30",
+                    credits: 3,
+                    seats: { available: 8, total: 25 },
+                    prerequisites: ["None"],
+                    description: "Front-end and back-end web development technologies.",
+                    year: 2,
+                    semester: 2
+                },
+                {
+                    id: "PE 211",
+                    name: "Recreational Leadership",
+                    instructor: "Emiliano A. Borata Jr.",
+                    schedule: "Mon/Wed/Fri 11:00-12:00",
+                    credits: 2,
+                    seats: { available: 12, total: 30 },
+                    prerequisites: ["PE 211"],
+                    description: "Principles and design of operating systems.",
+                    year: 2,
+                    semester: 2
+                },
+            
+                
+                // Third Year Courses
+                {
+                    id: "COMP 311",
+                    name: "Data Science",
+                    instructor: "Anthony S. Morallos",
+                    schedule: "Mon/Wed 10:00-11:30",
+                    credits: 3,
+                    seats: { available: 15, total: 25 },
+                    prerequisites: ["3rd year standing"],
+                    description: "Software development methodologies and project management.",
+                    year: 3,
+                    semester: 1
+                },
+                {
+                    id: "COMP 312",
+                    name: "GIS Application with DRRM",
+                    instructor: "Emeliano A. Boarat Jr.",
+                    schedule: "Tue/Thu 13:00-14:30",
+                    credits: 3,
+                    seats: { available: 10, total: 25 },
+                    prerequisites: ["3rd year standing"],
+                    description: "Network architecture, protocols, and security.",
+                    year: 3,
+                    semester: 1
+                },
+                {
+                    id: "IT 311",
+                    name: "Applied Operating Systems",
+                    instructor: "Emiliano A. Borata Jr.",
+                    schedule: "Mon/Wed/Fri 09:00-10:00",
+                    credits: 3,
+                    seats: { available: 8, total: 25 },
+                    prerequisites: ["3rd year standing"],
+                    description: "Fundamentals of AI and machine learning algorithms.",
+                    year: 3,
+                    semester: 1
+                },
+                {
+                    id: "IT 312",
+                    name: "Advanced Information Assurance and Security",
+                    instructor: "Randy L. Jataas",
+                    schedule: "Tue/Thu 10:00-11:30",
+                    credits: 3,
+                    seats: { available: 12, total: 25 },
+                    prerequisites: ["IT 222"],
+                    description: "Development of mobile applications for iOS and Android.",
+                    year: 3,
+                    semester: 1
+                },
+                {
+                    id: "IT 313",
+                    name: "Networking 1",
+                    instructor: "Anthony S. Morallos",
+                    schedule: "Mon/Wed 13:00-14:30",
+                    credits: 3,
+                    seats: { available: 15, total: 25 },
+                    prerequisites: ["IT 223"],
+                    description: "Principles of user-centered design and usability testing.",
+                    year: 3,
+                    semester: 1
+                },
+                {
+                    id: "IT 314",
+                    name: "IT Elective 1*",
+                    instructor: "Juderick P. Voces",
+                    schedule: "Tue/Thu 15:00-16:30",
+                    credits: 3,
+                    seats: { available: 10, total: 25 },
+                    prerequisites: ["3rd year standing"],
+                    description: "Cybersecurity principles and practices.",
+                    year: 3,
+                    semester: 1
+                },
+                {
+                    id: "IT 315",
+                    name: "IT Elective 2*",
+                    instructor: "Emiliano A. Borata Jr.",
+                    schedule: "Mon/Wed/Fri 11:00-12:00",
+                    credits: 3,
+                    seats: { available: 8, total: 25 },
+                    prerequisites: ["3rd year standing"],
+                    description: "Data analysis, visualization, and machine learning techniques.",
+                    year: 3,
+                    semester: 1
+                },
+                {
+                    id: "COMP 321",
+                    name: "Social Issue and Professional Practice",
+                    instructor: "Randy L. Jataas",
+                    schedule: "Tue/Thu 08:00-09:30",
+                    credits: 3,
+                    seats: { available: 12, total: 25 },
+                    prerequisites: ["None"],
+                    description: "Cloud infrastructure, services, and deployment models.",
+                    year: 3,
+                    semester: 2
+                },
+                {
+                    id: "COMP 322",
+                    name: "Mobile Computing",
+                    instructor: "Emeliano A. Boarat Jr.",
+                    schedule: "Tue/Thu 13:00-14:30",
+                    credits: 3,
+                    seats: { available: 10, total: 25 },
+                    prerequisites: ["3rd year standing"],
+                    description: "Network architecture, protocols, and security.",
+                    year: 3,
+                    semester: 2
+                },
+                {
+                    id: "IT 321",
+                    name: "Capstone Project and Project 1",
+                    instructor: "Emiliano A. Borata Jr.",
+                    schedule: "Mon/Wed/Fri 09:00-10:00",
+                    credits: 3,
+                    seats: { available: 8, total: 25 },
+                    prerequisites: ["3rd year standing"],
+                    description: "Fundamentals of AI and machine learning algorithms.",
+                    year: 3,
+                    semester: 2
+                },
+                {
+                    id: "IT 322",
+                    name: "Quantitative Methods with Modeling and Simulation",
+                    instructor: "Randy L. Jataas",
+                    schedule: "Tue/Thu 10:00-11:30",
+                    credits: 3,
+                    seats: { available: 12, total: 25 },
+                    prerequisites: ["3rd year standing"],
+                    description: "Development of mobile applications for iOS and Android.",
+                    year: 3,
+                    semester: 2
+                },
+                {
+                    id: "IT 323",
+                    name: "Networking 2",
+                    instructor: "Anthony S. Morallos",
+                    schedule: "Mon/Wed 13:00-14:30",
+                    credits: 3,
+                    seats: { available: 15, total: 25 },
+                    prerequisites: ["IT 312"],
+                    description: "Principles of user-centered design and usability testing.",
+                    year: 3,
+                    semester: 2
+                },
+                {
+                    id: "IT 324",
+                    name: "IT Elective 3*",
+                    instructor: "Juderick P. Voces",
+                    schedule: "Tue/Thu 15:00-16:30",
+                    credits: 3,
+                    seats: { available: 10, total: 25 },
+                    prerequisites: ["3rd year standing"],
+                    description: "Cybersecurity principles and practices.",
+                    year: 3,
+                    semester: 2
+                },
+                {
+                    id: "IT 325",
+                    name: "IT Elective 4*",
+                    instructor: "Emiliano A. Borata Jr.",
+                    schedule: "Mon/Wed/Fri 11:00-12:00",
+                    credits: 3,
+                    seats: { available: 8, total: 25 },
+                    prerequisites: ["3rd year standing"],
+                    description: "Data analysis, visualization, and machine learning techniques.",
+                    year: 3,
+                    semester: 2
+                },
+                
+                // Fourth Year Courses
+                {
+                    id: "IT 411",
+                    name: "Capstone Project and Research 2",
+                    instructor: "Emiliano A. Borata Jr.",
+                    schedule: "Mon/Wed 10:00-11:30",
+                    credits: 3,
+                    seats: { available: 20, total: 30 },
+                    prerequisites: ["4th year standing"],
+                    description: "First part of the senior capstone software development project.",
+                    year: 4,
+                    semester: 1
+                },
+                {
+                    id: "IT 412",
+                    name: "Special Topics in Information Technology",
+                    instructor: "Emiliano A. Borata Jr.",
+                    schedule: "Mon/Wed 10:00-11:30",
+                    credits: 3,
+                    seats: { available: 20, total: 30 },
+                    prerequisites: ["4th year standing"],
+                    description: "First part of the senior capstone software development project.",
+                    year: 4,
+                    semester: 1
+                },
+                {
+                    id: "IT 421",
+                    name: "On-The-Job Training",
+                    instructor: "Emiliano A. Borata Jr.",
+                    schedule: "Mon/Wed 10:00-11:30",
+                    credits: 6,
+                    seats: { available: 20, total: 30 },
+                    prerequisites: ["4th year standing"],
+                    description: "First part of the senior capstone software development project.",
+                    year: 4,
+                    semester: 1
+                },
+                
+            ],
+            enrolledCourses: [],
+            waitlistedCourses: [],
+            transcript: [
+                {
+                    semester: "Spring 2023",
+                    courses: [
+                        { id: "CS202", name: "Object-Oriented Programming", credits: 3, grade: "A-" },
+                        { id: "MATH202", name: "Calculus II", credits: 4, grade: "B+" },
+                        { id: "PHYS101", name: "Physics I", credits: 4, grade: "B" },
+                        { id: "HUM101", name: "Introduction to Humanities", credits: 3, grade: "A" }
+                    ]
+                },
+                {
+                    semester: "Fall 2022",
+                    courses: [
+                        { id: "CS101", name: "Introduction to Programming", credits: 3, grade: "A" },
+                        { id: "MATH101", name: "Calculus I", credits: 4, grade: "B+" },
+                        { id: "ENG101", name: "Composition I", credits: 3, grade: "A-" },
+                        { id: "HIST101", name: "World History", credits: 3, grade: "B" }
+                    ]
+                }
+            ],
+            financial: {
+                balance: 1250,
+                dueDate: "October 15, 2023",
+                paymentStatus: "Partial Payment",
+                invoice: [
+                    { description: "Tuition (12 credits @ $500/credit)", amount: 6000 },
+                    { description: "Technology Fee", amount: 150 },
+                    { description: "Student Activity Fee", amount: 100 },
+                    { description: "Total Charges", amount: 6250, isTotal: true },
+                    { description: "Scholarship Award", amount: -2000 },
+                    { description: "Previous Payment", amount: -3000 },
+                    { description: "Balance Due", amount: 1250, isTotal: true }
+                ],
+                paymentHistory: [
+                    { date: "Sep 5, 2023", description: "Fall 2023 Tuition - Initial Payment", amount: 3000, method: "Credit Card", status: "Completed" },
+                    { date: "May 10, 2023", description: "Spring 2023 Tuition", amount: 6000, method: "Bank Transfer", status: "Completed" },
+                    { date: "Jan 5, 2023", description: "Spring 2023 Tuition - Initial Payment", amount: 3000, method: "Credit Card", status: "Completed" }
+                ]
+            },
+            notifications: [
+                { id: 1, title: "Tuition Fee Reminder", message: "Payment due by Oct 15", date: "Sep 15, 2023", read: true },
+                { id: 2, title: "Course Registration Open", message: "Register for next semester", date: "Sep 10, 2023", read: true },
+                { id: 3, title: "Midterm Schedule", message: "Exams from Nov 10-15", date: "Sep 5, 2023", read: false },
+                { id: 4, title: "Academic Advising", message: "Schedule meeting with your advisor", date: "Aug 28, 2023", read: false },
+                { id: 5, title: "Library Book Due", message: "Return 'Data Structures' by Sep 30", date: "Aug 20, 2023", read: false }
+            ]
+        };
+
+        // State Management
+        let state = JSON.parse(JSON.stringify(sampleData));
+        let currentUser = null;
+        
+        // User database (in a real app, this would be on a server)
+        let userDatabase = JSON.parse(localStorage.getItem('essuUserDatabase')) || [];
+        let registeredStudentIds = JSON.parse(localStorage.getItem('registeredStudentIds')) || [];
+
+        // DOM Elements
+        const elements = {
+            // Login Screen
+            loginScreen: document.getElementById('login-screen'),
+            loginForm: document.getElementById('login-form'),
+            registrationForm: document.getElementById('registration-form'),
+            mainApp: document.getElementById('main-app'),
+            
+            // Dashboard
+            currentGwa: document.getElementById('current-gwa'),
+            creditsCompleted: document.getElementById('credits-completed'),
+            currentCourses: document.getElementById('current-courses'),
+            balanceDue: document.getElementById('balance-due'),
+            currentCoursesTable: document.getElementById('current-courses-table'),
+            notificationsList: document.getElementById('notifications-list'),
+            welcomeMessage: document.getElementById('welcome-message'),
+            userAvatar: document.getElementById('user-avatar'),
+            
+            // Course Registration
+            courseCatalog: document.getElementById('course-catalog'),
+            enrolledCoursesTable: document.getElementById('enrolled-courses-table'),
+            waitlistCoursesTable: document.getElementById('waitlist-courses-table'),
+            enrolledCount: document.getElementById('enrolled-count'),
+            waitlistCount: document.getElementById('waitlist-count'),
+            
+            // Grades
+            currentGradesTable: document.getElementById('current-grades-table'),
+            transcriptTable: document.getElementById('transcript-table'),
+            gwaValue: document.getElementById('gwa-value'),
+            creditsCompletedValue: document.getElementById('credits-completed-value'),
+            academicStanding: document.getElementById('academic-standing'),
+            
+            // Financial
+            invoiceTable: document.getElementById('invoice-table'),
+            dueDate: document.getElementById('due-date'),
+            paymentStatus: document.getElementById('payment-status'),
+            paymentHistoryTable: document.getElementById('payment-history-table'),
+            
+            // Profile
+            studentId: document.getElementById('student-id'),
+            program: document.getElementById('program'),
+            firstName: document.getElementById('first-name'),
+            lastName: document.getElementById('last-name'),
+            profileEmail: document.getElementById('profile-email'),
+            phone: document.getElementById('phone'),
+            address: document.getElementById('address'),
+            
+            // Modals
+            notificationsModal: document.getElementById('notifications-modal'),
+            courseDetailsModal: document.getElementById('course-details-modal'),
+            paymentConfirmationModal: document.getElementById('payment-confirmation-modal')
+        };
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+            
+            // Initialize with some sample data for demonstration
+            setTimeout(() => {
+                // Add some sample enrolled and waitlisted courses for demo
+                if (state.enrolledCourses.length === 0 && state.waitlistedCourses.length === 0) {
+                    // Sample enrolled course
+                    const sampleEnrolledCourse = {
+                        id: "COMP 111",
+                        name: "Introduction to Computing",
+                        instructor: "Anthony S. Morallos",
+                        schedule: "Mon/Wed 10:00-11:30",
+                        credits: 3,
+                        progress: 0,
+                        midtermGrade: '-',
+                        finalGrade: '-'
+                    };
+                    
+                    // Sample waitlisted course
+                    const sampleWaitlistedCourse = {
+                        id: "COMP 211",
+                        name: "Data Structures and Algorithms",
+                        instructor: "Anthony S. Morallos",
+                        schedule: "Mon/Wed 10:00-11:30",
+                        credits: 3,
+                        seats: { available: 0, total: 25 },
+                        prerequisites: ["COMP 121"],
+                        description: "Implementation and analysis of data structures and algorithms.",
+                        waitlistPosition: 1
+                    };
+                    
+                    state.enrolledCourses.push(sampleEnrolledCourse);
+                    state.waitlistedCourses.push(sampleWaitlistedCourse);
+                    
+                    // Update the UI
+                    updateCourseRegistration();
+                }
+            }, 1000);
+        });
+
+        // Show Login Screen
+        function showLoginScreen() {
+            elements.loginScreen.style.display = 'flex';
+            elements.mainApp.style.display = 'none';
+        }
+
+        // Show Main Application
+        function showMainApp() {
+            elements.loginScreen.style.display = 'none';
+            elements.mainApp.style.display = 'block';
+            initializeApp();
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Login form
+            elements.loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                signIn(email, password);
+            });
+
+            // Registration form
+            elements.registrationForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const firstName = document.getElementById('reg-first-name').value;
+                const lastName = document.getElementById('reg-last-name').value;
+                const studentId = document.getElementById('reg-student-id').value;
+                const email = document.getElementById('reg-email').value;
+                const password = document.getElementById('reg-password').value;
+                const confirmPassword = document.getElementById('reg-confirm-password').value;
+                
+                register(firstName, lastName, studentId, email, password, confirmPassword);
+            });
+
+            // Register link
+            document.getElementById('register-link').addEventListener('click', function(e) {
+                e.preventDefault();
+                showRegistrationForm();
+            });
+
+            // Login link
+            document.getElementById('login-link').addEventListener('click', function(e) {
+                e.preventDefault();
+                showLoginForm();
+            });
+
+            // Logout button
+            document.getElementById('logout-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                signOut();
+            });
+
+            // Tab navigation
+            const navLinks = document.querySelectorAll('.nav-links a');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links and tabs
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    tabContents.forEach(tab => tab.classList.remove('active'));
+                    
+                    // Add active class to clicked link and corresponding tab
+                    this.classList.add('active');
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Subtab navigation - CRITICAL FIX FOR MY COURSES AND WAITLIST
+            const subtabs = document.querySelectorAll('.tab[data-subtab]');
+            const subtabContents = document.querySelectorAll('.subtab-content');
+            
+            subtabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all subtabs and subtab contents
+                    subtabs.forEach(t => t.classList.remove('active'));
+                    subtabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked subtab and corresponding content
+                    this.classList.add('active');
+                    const subtabId = this.getAttribute('data-subtab');
+                    document.getElementById(subtabId).classList.add('active');
+                });
+            });
+            
+            // Year filter buttons
+            document.querySelectorAll('.year-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    const year = this.getAttribute('data-year');
+                    filterCoursesByYear(year);
+                });
+            });
+            
+            // Notifications
+            document.getElementById('notificationBtn').addEventListener('click', showNotificationsModal);
+            document.getElementById('close-notifications').addEventListener('click', hideNotificationsModal);
+            document.getElementById('mark-all-read').addEventListener('click', markAllNotificationsAsRead);
+            document.querySelectorAll('.close').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.closest('.modal').style.display = 'none';
+                });
+            });
+            
+            // Course registration
+            document.getElementById('viewAllCourses').addEventListener('click', function() {
+                document.querySelector('.nav-links a[data-tab="courses"]').click();
+            });
+            
+            // Financial
+            document.getElementById('make-payment-btn').addEventListener('click', function() {
+                document.querySelector('.tab[data-subtab="payment"]').click();
+            });
+            
+            document.getElementById('submit-payment').addEventListener('click', showPaymentConfirmation);
+            document.getElementById('confirm-payment').addEventListener('click', processPayment);
+            document.getElementById('cancel-payment').addEventListener('click', function() {
+                document.getElementById('payment-confirmation-modal').style.display = 'none';
+            });
+            
+            // Profile
+            document.getElementById('update-profile').addEventListener('click', updateStudentProfile);
+            
+            // Payment method change
+            document.getElementById('payment-method').addEventListener('change', function() {
+                const cardDetails = document.getElementById('card-details');
+                if (this.value === 'Credit/Debit Card') {
+                    cardDetails.style.display = 'block';
+                } else {
+                    cardDetails.style.display = 'none';
+                }
+            });
+            
+            // Student ID validation
+            document.getElementById('reg-student-id').addEventListener('blur', function() {
+                validateStudentId(this.value);
+            });
+            
+            // Password confirmation validation
+            document.getElementById('reg-confirm-password').addEventListener('blur', function() {
+                validatePasswordMatch();
+            });
+        }
+
+        // Show Registration Form
+        function showRegistrationForm() {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('registration-form').style.display = 'block';
+            document.getElementById('back-to-login').style.display = 'block';
+            document.querySelector('.login-footer').style.display = 'none';
+        }
+
+        // Show Login Form
+        function showLoginForm() {
+            document.getElementById('login-form').style.display = 'block';
+            document.getElementById('registration-form').style.display = 'none';
+            document.getElementById('back-to-login').style.display = 'none';
+            document.querySelector('.login-footer').style.display = 'block';
+        }
+
+        // Authentication Functions (Updated to remove hardcoded name)
+        function signIn(email, password) {
+            showLoading();
+            // Simulate authentication
+            setTimeout(() => {
+                hideLoading();
+                
+                // Check if user exists in database
+                const user = userDatabase.find(u => u.email === email && u.password === password);
+                
+                if (user) {
+                    // Update student data with actual user information
+                    state.student.firstName = user.firstName;
+                    state.student.lastName = user.lastName;
+                    state.student.email = user.email;
+                    state.student.id = user.studentId;
+                    
+                    showMainApp();
+                } else {
+                    alert("Invalid email or password. Please try again.");
+                }
+            }, 1000);
+        }
+
+        function register(firstName, lastName, studentId, email, password, confirmPassword) {
+            // Validate inputs
+            if (!validateStudentId(studentId)) {
+                return;
+            }
+            
+            if (!validatePasswordMatch()) {
+                return;
+            }
+            
+            showLoading();
+            // Simulate registration
+            setTimeout(() => {
+                hideLoading();
+                
+                // Check if student ID is already registered
+                if (registeredStudentIds.includes(studentId)) {
+                    document.getElementById('student-id-error').style.display = 'block';
+                    return;
+                }
+                
+                // Add user to database
+                const newUser = {
+                    firstName,
+                    lastName,
+                    studentId,
+                    email,
+                    password
+                };
+                
+                userDatabase.push(newUser);
+                registeredStudentIds.push(studentId);
+                
+                // Save to localStorage (in a real app, this would be a server call)
+                localStorage.setItem('essuUserDatabase', JSON.stringify(userDatabase));
+                localStorage.setItem('registeredStudentIds', JSON.stringify(registeredStudentIds));
+                
+                alert("Registration successful! Please sign in.");
+                showLoginForm();
+            }, 1000);
+        }
+
+        function validateStudentId(studentId) {
+            const errorElement = document.getElementById('student-id-error');
+            
+            if (registeredStudentIds.includes(studentId)) {
+                errorElement.style.display = 'block';
+                return false;
+            } else {
+                errorElement.style.display = 'none';
+                return true;
+            }
+        }
+
+        function validatePasswordMatch() {
+            const password = document.getElementById('reg-password').value;
+            const confirmPassword = document.getElementById('reg-confirm-password').value;
+            const errorElement = document.getElementById('password-error');
+            
+            if (password !== confirmPassword) {
+                errorElement.style.display = 'block';
+                return false;
+            } else {
+                errorElement.style.display = 'none';
+                return true;
+            }
+        }
+
+        function signOut() {
+            showLoginScreen();
+        }
+
+        // Initialize the application with data
+        function initializeApp() {
+            updateDashboard();
+            updateCourseRegistration();
+            updateGrades();
+            updateFinancial();
+            updateProfile();
+        }
+
+        // Update Dashboard (Modified to handle empty names)
+        function updateDashboard() {
+            // Update welcome message - handle case where name might be empty
+            const displayName = state.student.firstName || "Student";
+            elements.welcomeMessage.textContent = `Welcome back, ${displayName}! Here's your academic overview.`;
+            
+            // Update user avatar - use initials or default
+            const firstName = state.student.firstName || "S";
+            const lastName = state.student.lastName || "U";
+            elements.userAvatar.textContent = firstName.charAt(0) + lastName.charAt(0);
+            
+            // Update stats
+            elements.currentGwa.textContent = state.student.gwa;
+            elements.creditsCompleted.textContent = `${state.student.creditsCompleted}/${state.student.creditsRequired}`;
+            elements.currentCourses.textContent = state.currentCourses.length;
+            elements.balanceDue.textContent = `₱${state.financial.balance}`;
+            
+            // Update current courses table
+            const tbody = elements.currentCoursesTable.querySelector('tbody');
+            tbody.innerHTML = '';
+            
+            state.currentCourses.forEach(course => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${course.id} - ${course.name}</td>
+                    <td>${course.instructor}</td>
+                    <td>${course.schedule}</td>
+                    <td>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${course.progress}%"></div>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            // Update notifications
+            updateNotificationsList();
+        }
+
+        // Update Course Registration with enhanced functionality
+        function updateCourseRegistration() {
+            // Update course catalog with year organization
+            updateCourseCatalog();
+            
+            // Update enrolled courses table
+            const enrolledTbody = elements.enrolledCoursesTable.querySelector('tbody');
+            enrolledTbody.innerHTML = '';
+            
+            if (state.enrolledCourses.length === 0) {
+                document.getElementById('enrolled-empty').style.display = 'block';
+                document.getElementById('enrolled-table-container').style.display = 'none';
+            } else {
+                document.getElementById('enrolled-empty').style.display = 'none';
+                document.getElementById('enrolled-table-container').style.display = 'block';
+                
+                state.enrolledCourses.forEach(course => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${course.id}</td>
+                        <td>${course.name}</td>
+                        <td>${course.instructor}</td>
+                        <td>${course.schedule}</td>
+                        <td>${course.credits}</td>
+                        <td><span class="status status-enrolled">Enrolled</span></td>
+                        <td>
+                            <button class="btn btn-danger btn-sm drop-btn" data-id="${course.id}">Drop</button>
+                        </td>
+                    `;
+                    enrolledTbody.appendChild(row);
+                });
+            }
+            
+            // Update waitlist table
+            const waitlistTbody = elements.waitlistCoursesTable.querySelector('tbody');
+            waitlistTbody.innerHTML = '';
+            
+            if (state.waitlistedCourses.length === 0) {
+                document.getElementById('waitlist-empty').style.display = 'block';
+                document.getElementById('waitlist-table-container').style.display = 'none';
+            } else {
+                document.getElementById('waitlist-empty').style.display = 'none';
+                document.getElementById('waitlist-table-container').style.display = 'block';
+                
+                state.waitlistedCourses.forEach(course => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${course.id}</td>
+                        <td>${course.name}</td>
+                        <td>${course.instructor}</td>
+                        <td>${course.schedule}</td>
+                        <td>${course.credits}</td>
+                        <td><span class="waitlist-position">${course.waitlistPosition}</span></td>
+                        <td>
+                            <button class="btn btn-danger btn-sm remove-waitlist-btn" data-id="${course.id}">Remove</button>
+                        </td>
+                    `;
+                    waitlistTbody.appendChild(row);
+                });
+            }
+            
+            // Update counts and summaries
+            elements.enrolledCount.textContent = state.enrolledCourses.length;
+            elements.waitlistCount.textContent = state.waitlistedCourses.length;
+            document.getElementById('waitlist-total').textContent = state.waitlistedCourses.length;
+            
+            // Calculate current credits
+            const currentCredits = state.enrolledCourses.reduce((total, course) => total + course.credits, 0);
+            document.getElementById('current-credits').textContent = currentCredits;
+            
+            // Add event listeners for course buttons
+            document.querySelectorAll('.drop-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const courseId = this.getAttribute('data-id');
+                    dropCourse(courseId);
+                });
+            });
+            
+            document.querySelectorAll('.remove-waitlist-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const courseId = this.getAttribute('data-id');
+                    removeFromWaitlist(courseId);
+                });
+            });
+        }
+
+        // Update Course Catalog with Year Organization
+        function updateCourseCatalog() {
+            const catalogContainer = elements.courseCatalog;
+            catalogContainer.innerHTML = '';
+            
+            // Group courses by year
+            const coursesByYear = {};
+            state.availableCourses.forEach(course => {
+                if (!coursesByYear[course.year]) {
+                    coursesByYear[course.year] = [];
+                }
+                coursesByYear[course.year].push(course);
+            });
+            
+            // Create year sections
+            Object.keys(coursesByYear).sort().forEach(year => {
+                const yearSection = document.createElement('div');
+                yearSection.className = 'course-year-section';
+                yearSection.setAttribute('data-year', year);
+                
+                const yearHeader = document.createElement('div');
+                yearHeader.className = 'year-header';
+                yearHeader.innerHTML = `
+                    <span>Year ${year} Courses</span>
+                    <i class="fas fa-chevron-down"></i>
+                `;
+                
+                const yearContent = document.createElement('div');
+                yearContent.className = 'year-content';
+                
+                // Group courses by semester within the year
+                const coursesBySemester = {};
+                coursesByYear[year].forEach(course => {
+                    if (!coursesBySemester[course.semester]) {
+                        coursesBySemester[course.semester] = [];
+                    }
+                    coursesBySemester[course.semester].push(course);
+                });
+                
+                // Create semester sections
+                Object.keys(coursesBySemester).sort().forEach(semester => {
+                    const semesterSection = document.createElement('div');
+                    semesterSection.className = 'semester-section';
+                    
+                    const semesterTitle = document.createElement('div');
+                    semesterTitle.className = 'semester-title';
+                    semesterTitle.textContent = `Semester ${semester}`;
+                    
+                    const coursesContainer = document.createElement('div');
+                    
+                    // Create course cards for this semester
+                    coursesBySemester[semester].forEach(course => {
+                        const courseCard = createCourseCard(course);
+                        coursesContainer.appendChild(courseCard);
+                    });
+                    
+                    semesterSection.appendChild(semesterTitle);
+                    semesterSection.appendChild(coursesContainer);
+                    yearContent.appendChild(semesterSection);
+                });
+                
+                yearSection.appendChild(yearHeader);
+                yearSection.appendChild(yearContent);
+                catalogContainer.appendChild(yearSection);
+                
+                // Add click event to toggle year content
+                yearHeader.addEventListener('click', function() {
+                    const icon = this.querySelector('i');
+                    const content = this.nextElementSibling;
+                    
+                    if (content.style.display === 'none') {
+                        content.style.display = 'block';
+                        icon.classList.remove('fa-chevron-down');
+                        icon.classList.add('fa-chevron-up');
+                    } else {
+                        content.style.display = 'none';
+                        icon.classList.remove('fa-chevron-up');
+                        icon.classList.add('fa-chevron-down');
+                    }
+                });
+            });
+        }
+
+        // Create Course Card
+        function createCourseCard(course) {
+            const isFull = course.seats.available === 0;
+            const isEnrolled = state.enrolledCourses.some(c => c.id === course.id);
+            const isWaitlisted = state.waitlistedCourses.some(c => c.id === course.id);
+            const hasConflict = checkScheduleConflict(course, state.enrolledCourses);
+            
+            const courseCard = document.createElement('div');
+            courseCard.className = 'course-card';
+            
+            courseCard.innerHTML = `
+                <div class="course-card-header">
+                    <div class="course-id">${course.id}</div>
+                    <div class="course-credits">${course.credits} credits</div>
+                </div>
+                <div class="course-name">${course.name}</div>
+                <div class="course-details">
+                    <div class="course-detail">
+                        <i class="fas fa-user"></i>
+                        <span>${course.instructor}</span>
+                    </div>
+                    <div class="course-detail">
+                        <i class="fas fa-clock"></i>
+                        <span>${course.schedule}</span>
+                    </div>
+                </div>
+                <div class="seats-info">
+                    <i class="fas fa-users"></i>
+                    <span>Seats: </span>
+                    <span class="${isFull ? 'seats-full' : 'seats-available'}">
+                        ${course.seats.available}/${course.seats.total}
+                    </span>
+                </div>
+                ${course.prerequisites.length > 0 ? 
+                    `<div class="prerequisites"><strong>Prerequisites:</strong> ${course.prerequisites.join(', ')}</div>` : 
+                    ''
+                }
+                <div class="course-actions">
+                    ${isEnrolled ? 
+                        `<button class="btn btn-outline btn-sm" disabled>Enrolled</button>` : 
+                        isWaitlisted ? 
+                            `<button class="btn btn-warning btn-sm" disabled>Waitlisted</button>` :
+                            isFull ? 
+                                `<button class="btn btn-warning btn-sm waitlist-btn" data-id="${course.id}">Waitlist</button>` : 
+                                `<button class="btn btn-success btn-sm enroll-btn" data-id="${course.id}">Enroll</button>`
+                    }
+                    <button class="btn btn-outline btn-sm details-btn" data-id="${course.id}">Details</button>
+                </div>
+                ${hasConflict && !isEnrolled ? `<div class="conflict-warning"><i class="fas fa-exclamation-triangle"></i> Schedule conflict with enrolled course</div>` : ''}
+            `;
+            
+            // Add event listeners for buttons
+            const enrollBtn = courseCard.querySelector('.enroll-btn');
+            if (enrollBtn) {
+                enrollBtn.addEventListener('click', function() {
+                    const courseId = this.getAttribute('data-id');
+                    enrollInCourse(courseId);
+                });
+            }
+            
+            const waitlistBtn = courseCard.querySelector('.waitlist-btn');
+            if (waitlistBtn) {
+                waitlistBtn.addEventListener('click', function() {
+                    const courseId = this.getAttribute('data-id');
+                    addToWaitlist(courseId);
+                });
+            }
+            
+            const detailsBtn = courseCard.querySelector('.details-btn');
+            if (detailsBtn) {
+                detailsBtn.addEventListener('click', function() {
+                    const courseId = this.getAttribute('data-id');
+                    showCourseDetails(courseId);
+                });
+            }
+            
+            return courseCard;
+        }
+
+        // Filter Courses by Year
+        function filterCoursesByYear(year) {
+            const yearSections = document.querySelectorAll('.course-year-section');
+            
+            if (year === 'all') {
+                yearSections.forEach(section => {
+                    section.style.display = 'block';
+                });
+            } else {
+                yearSections.forEach(section => {
+                    if (section.getAttribute('data-year') === year) {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+            }
+        }
+
+        // Check for schedule conflicts
+        function checkScheduleConflict(newCourse, enrolledCourses) {
+            // Simple conflict detection based on schedule string matching
+            // In a real application, you would parse the schedule and check for overlapping times
+            return enrolledCourses.some(course => course.schedule === newCourse.schedule);
+        }
+
+        // Enhanced enroll function with credit limit check
+        function enrollInCourse(courseId) {
+            const course = state.availableCourses.find(c => c.id === courseId);
+            if (!course) return;
+            
+            // Check if already enrolled
+            if (state.enrolledCourses.some(c => c.id === courseId)) {
+                alert(`You are already enrolled in ${course.id} - ${course.name}`);
+                return;
+            }
+            
+            // Check if course is full
+            if (course.seats.available === 0) {
+                alert(`Sorry, ${course.id} - ${course.name} is full. You can join the waitlist.`);
+                return;
+            }
+            
+            // Check for schedule conflicts
+            const hasConflict = checkScheduleConflict(course, state.enrolledCourses);
+            
+            if (hasConflict) {
+                alert(`Schedule conflict: ${course.id} - ${course.name} conflicts with your current schedule.`);
+                return;
+            }
+            
+            // Check credit limit
+            const currentCredits = state.enrolledCourses.reduce((total, course) => total + course.credits, 0);
+            if (currentCredits + course.credits > 18) {
+                alert(`Cannot enroll: This would exceed the 18 credit hour limit. Current credits: ${currentCredits}`);
+                return;
+            }
+            
+            // Enroll in course
+            const enrolledCourse = {
+                ...course,
+                progress: 0,
+                midtermGrade: '-',
+                finalGrade: '-'
+            };
+            
+            state.enrolledCourses.push(enrolledCourse);
+            
+            // Update available seats
+            course.seats.available--;
+            
+            // Remove from waitlist if applicable
+            const waitlistIndex = state.waitlistedCourses.findIndex(c => c.id === courseId);
+            if (waitlistIndex !== -1) {
+                state.waitlistedCourses.splice(waitlistIndex, 1);
+                // Update waitlist positions for remaining courses
+                updateWaitlistPositions();
+            }
+            
+            // Update UI
+            updateCourseRegistration();
+            updateDashboard();
+            updateGrades();
+            
+            // Show success message
+            alert(`Successfully enrolled in ${course.id} - ${course.name}`);
+            
+            // Close modal if open
+            elements.courseDetailsModal.style.display = 'none';
+        }
+
+        // Enhanced add to waitlist function
+        function addToWaitlist(courseId) {
+            const course = state.availableCourses.find(c => c.id === courseId);
+            if (!course) return;
+            
+            // Check if already on waitlist
+            if (state.waitlistedCourses.some(c => c.id === courseId)) {
+                alert(`You are already on the waitlist for ${course.id} - ${course.name}`);
+                return;
+            }
+            
+            // Check if already enrolled
+            if (state.enrolledCourses.some(c => c.id === courseId)) {
+                alert(`You are already enrolled in ${course.id} - ${course.name}`);
+                return;
+            }
+            
+            // Add to waitlist
+            const waitlistPosition = state.waitlistedCourses.length + 1;
+            const waitlistedCourse = {
+                ...course,
+                waitlistPosition: waitlistPosition
+            };
+            
+            state.waitlistedCourses.push(waitlistedCourse);
+            
+            // Update UI
+            updateCourseRegistration();
+            
+            // Show success message
+            alert(`Added to waitlist for ${course.id} - ${course.name}. Your position: ${waitlistPosition}`);
+            
+            // Close modal if open
+            elements.courseDetailsModal.style.display = 'none';
+        }
+
+        // Enhanced drop course function
+        function dropCourse(courseId) {
+            const course = state.enrolledCourses.find(c => c.id === courseId);
+            if (!course) return;
+            
+            if (!confirm(`Are you sure you want to drop ${course.id} - ${course.name}?`)) {
+                return;
+            }
+            
+            // Remove from enrolled courses
+            state.enrolledCourses = state.enrolledCourses.filter(c => c.id !== courseId);
+            
+            // Update available seats
+            const availableCourse = state.availableCourses.find(c => c.id === courseId);
+            if (availableCourse) {
+                availableCourse.seats.available++;
+                
+                // If there are students on the waitlist, enroll the first one
+                const waitlistForCourse = state.waitlistedCourses
+                    .filter(c => c.id === courseId)
+                    .sort((a, b) => a.waitlistPosition - b.waitlistPosition);
+                
+                if (waitlistForCourse.length > 0) {
+                    const nextStudent = waitlistForCourse[0];
+                    // In a real application, you would notify the next student
+                    console.log(`Next in waitlist for ${courseId}: Position ${nextStudent.waitlistPosition}`);
+                }
+            }
+            
+            // Update UI
+            updateCourseRegistration();
+            updateDashboard();
+            updateGrades();
+            
+            // Show success message
+            alert(`Successfully dropped ${course.id} - ${course.name}`);
+        }
+
+        // Enhanced remove from waitlist function
+        function removeFromWaitlist(courseId) {
+            const course = state.waitlistedCourses.find(c => c.id === courseId);
+            if (!course) return;
+            
+            if (!confirm(`Are you sure you want to remove yourself from the waitlist for ${course.id} - ${course.name}?`)) {
+                return;
+            }
+            
+            // Remove from waitlist
+            state.waitlistedCourses = state.waitlistedCourses.filter(c => c.id !== courseId);
+            
+            // Update waitlist positions
+            updateWaitlistPositions();
+            
+            // Update UI
+            updateCourseRegistration();
+            
+            // Show success message
+            alert(`Removed from waitlist for ${course.id} - ${course.name}`);
+        }
+
+        // Update waitlist positions after changes
+        function updateWaitlistPositions() {
+            state.waitlistedCourses.forEach((course, index) => {
+                course.waitlistPosition = index + 1;
+            });
+        }
+
+        // Update Grades
+        function updateGrades() {
+            // Update current grades table
+            const currentTbody = elements.currentGradesTable.querySelector('tbody');
+            currentTbody.innerHTML = '';
+            
+            state.currentCourses.forEach(course => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${course.id}</td>
+                    <td>${course.name}</td>
+                    <td>${course.instructor}</td>
+                    <td>${course.midtermGrade}</td>
+                    <td>${course.finalGrade}</td>
+                    <td><span class="status status-enrolled">In Progress</span></td>
+                `;
+                currentTbody.appendChild(row);
+            });
+            
+            // Update transcript table
+            const transcriptTbody = elements.transcriptTable.querySelector('tbody');
+            transcriptTbody.innerHTML = '';
+            
+            state.transcript.forEach(semester => {
+                let firstRow = true;
+                semester.courses.forEach(course => {
+                    const row = document.createElement('tr');
+                    if (firstRow) {
+                        row.innerHTML = `
+                            <td rowspan="${semester.courses.length}">${semester.semester}</td>
+                            <td>${course.id}</td>
+                            <td>${course.name}</td>
+                            <td>${course.credits}</td>
+                            <td>${course.grade}</td>
+                        `;
+                        firstRow = false;
+                    } else {
+                        row.innerHTML = `
+                            <td>${course.id}</td>
+                            <td>${course.name}</td>
+                            <td>${course.credits}</td>
+                            <td>${course.grade}</td>
+                        `;
+                    }
+                    transcriptTbody.appendChild(row);
+                });
+                
+                // Add semester summary
+                const summaryRow = document.createElement('tr');
+                summaryRow.innerHTML = `
+                    <td colspan="3"><strong>Semester GWA:</strong> 3.25</td>
+                    <td><strong>Credits:</strong> ${semester.courses.reduce((sum, course) => sum + course.credits, 0)}</td>
+                    <td></td>
+                `;
+                transcriptTbody.appendChild(summaryRow);
+            });
+            
+            // Update academic standing
+            elements.gwaValue.value = state.student.gwa;
+            elements.creditsCompletedValue.value = state.student.creditsCompleted;
+            elements.academicStanding.value = state.student.academicStanding;
+        }
+
+        // Update Financial Information
+        function updateFinancial() {
+            // Update invoice table
+            const invoiceTbody = elements.invoiceTable.querySelector('tbody');
+            invoiceTbody.innerHTML = '';
+            
+            state.financial.invoice.forEach(item => {
+                const row = document.createElement('tr');
+                if (item.isTotal) {
+                    row.innerHTML = `
+                        <td><strong>${item.description}</strong></td>
+                        <td><strong>${formatCurrency(item.amount)}</strong></td>
+                    `;
+                } else {
+                    row.innerHTML = `
+                        <td>${item.description}</td>
+                        <td>${formatCurrency(item.amount)}</td>
+                    `;
+                }
+                invoiceTbody.appendChild(row);
+            });
+            
+            // Update payment history table
+            const historyTbody = elements.paymentHistoryTable.querySelector('tbody');
+            historyTbody.innerHTML = '';
+            
+            state.financial.paymentHistory.forEach(payment => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${payment.date}</td>
+                    <td>${payment.description}</td>
+                    <td>${formatCurrency(payment.amount)}</td>
+                    <td>${payment.method}</td>
+                    <td><span class="status status-enrolled">${payment.status}</span></td>
+                `;
+                historyTbody.appendChild(row);
+            });
+            
+            // Update payment status
+            elements.dueDate.textContent = state.financial.dueDate;
+            elements.paymentStatus.textContent = state.financial.paymentStatus;
+        }
+
+        // Update Profile (Modified to handle empty values)
+        function updateProfile() {
+            elements.studentId.value = state.student.id;
+            elements.program.value = state.student.program;
+            elements.firstName.value = state.student.firstName || "";
+            elements.lastName.value = state.student.lastName || "";
+            elements.profileEmail.value = state.student.email || "";
+            elements.phone.value = state.student.phone;
+            elements.address.value = state.student.address;
+        }
+
+        // Update Notifications List
+        function updateNotificationsList() {
+            const unreadNotifications = state.notifications.filter(n => !n.read);
+            const notificationBadge = document.querySelector('.notification-badge');
+            notificationBadge.textContent = unreadNotifications.length;
+            
+            // Update notifications list in dashboard
+            elements.notificationsList.innerHTML = '';
+            
+            // Show only the 3 most recent notifications
+            const recentNotifications = state.notifications.slice(0, 3);
+            
+            recentNotifications.forEach(notification => {
+                const notificationEl = document.createElement('div');
+                notificationEl.style.display = 'flex';
+                notificationEl.style.alignItems = 'flex-start';
+                notificationEl.style.gap = '0.8rem';
+                notificationEl.style.paddingBottom = '0.8rem';
+                notificationEl.style.borderBottom = '1px solid var(--gray-light)';
+                
+                const iconColor = notification.read ? 'var(--gray)' : 'var(--primary)';
+                
+                notificationEl.innerHTML = `
+                    <div style="background: rgba(19, 136, 8, 0.1); width: 36px; height: 36px; border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-bell" style="color: ${iconColor};"></i>
+                    </div>
+                    <div>
+                        <div style="font-weight: 500; font-size: 0.9rem;">${notification.title}</div>
+                        <div style="font-size: 0.8rem; color: var(--gray);">${notification.message}</div>
+                    </div>
+                `;
+                
+                elements.notificationsList.appendChild(notificationEl);
+            });
+        }
+
+        // Show Notifications Modal
+        function showNotificationsModal() {
+            const modalBody = document.getElementById('notifications-modal-body');
+            modalBody.innerHTML = '';
+            
+            state.notifications.forEach(notification => {
+                const notificationEl = document.createElement('div');
+                notificationEl.style.display = 'flex';
+                notificationEl.style.alignItems = 'flex-start';
+                notificationEl.style.gap = '0.8rem';
+                notificationEl.style.padding = '0.8rem';
+                notificationEl.style.borderBottom = '1px solid var(--gray-light)';
+                notificationEl.style.backgroundColor = notification.read ? 'transparent' : 'rgba(19, 136, 8, 0.05)';
+                
+                notificationEl.innerHTML = `
+                    <div style="background: rgba(19, 136, 8, 0.1); width: 36px; height: 36px; border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-bell" style="color: var(--primary);"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 500; font-size: 0.9rem;">${notification.title}</div>
+                        <div style="font-size: 0.8rem; color: var(--gray);">${notification.message}</div>
+                        <div style="font-size: 0.7rem; color: var(--gray); margin-top: 0.2rem;">${notification.date}</div>
+                    </div>
+                    ${!notification.read ? 
+                        '<button class="btn btn-outline btn-sm mark-read-btn" data-id="' + notification.id + '">Mark Read</button>' : 
+                        '<span style="font-size: 0.7rem; color: var(--gray);">Read</span>'
+                    }
+                `;
+                
+                modalBody.appendChild(notificationEl);
+            });
+            
+            // Add event listeners for mark as read buttons
+            document.querySelectorAll('.mark-read-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const notificationId = parseInt(this.getAttribute('data-id'));
+                    markNotificationAsRead(notificationId);
+                });
+            });
+            
+            elements.notificationsModal.style.display = 'flex';
+        }
+
+        // Hide Notifications Modal
+        function hideNotificationsModal() {
+            elements.notificationsModal.style.display = 'none';
+        }
+
+        // Mark Notification as Read
+        function markNotificationAsRead(id) {
+            const notification = state.notifications.find(n => n.id === id);
+            if (notification) {
+                notification.read = true;
+                updateNotificationsList();
+                showNotificationsModal(); // Refresh the modal
+            }
+        }
+
+        // Mark All Notifications as Read
+        function markAllNotificationsAsRead() {
+            state.notifications.forEach(notification => {
+                notification.read = true;
+            });
+            updateNotificationsList();
+            showNotificationsModal(); // Refresh the modal
+        }
+
+        // Show Course Details
+        function showCourseDetails(courseId) {
+            const course = state.availableCourses.find(c => c.id === courseId);
+            if (!course) return;
+            
+            document.getElementById('course-modal-title').textContent = `${course.id} - ${course.name}`;
+            
+            const modalBody = document.getElementById('course-modal-body');
+            modalBody.innerHTML = `
+                <p><strong>Instructor:</strong> ${course.instructor}</p>
+                <p><strong>Schedule:</strong> ${course.schedule}</p>
+                <p><strong>Credits:</strong> ${course.credits}</p>
+                <p><strong>Seats Available:</strong> ${course.seats.available}/${course.seats.total}</p>
+                <p><strong>Prerequisites:</strong> ${course.prerequisites.length > 0 ? course.prerequisites.join(', ') : 'None'}</p>
+                <p><strong>Description:</strong> ${course.description}</p>
+                <p><strong>Year:</strong> ${course.year}</p>
+                <p><strong>Semester:</strong> ${course.semester}</p>
+            `;
+            
+            // Update enroll button based on availability
+            const enrollBtn = document.getElementById('enroll-course');
+            if (course.seats.available === 0) {
+                enrollBtn.textContent = 'Join Waitlist';
+                enrollBtn.className = 'btn btn-warning';
+                enrollBtn.onclick = function() { addToWaitlist(courseId); };
+            } else {
+                enrollBtn.textContent = 'Enroll';
+                enrollBtn.className = 'btn btn-primary';
+                enrollBtn.onclick = function() { enrollInCourse(courseId); };
+            }
+            
+            elements.courseDetailsModal.style.display = 'flex';
+            
+            // Close button
+            document.getElementById('close-course-details').onclick = function() {
+                elements.courseDetailsModal.style.display = 'none';
+            };
+        }
+
+        // Show Payment Confirmation
+        function showPaymentConfirmation() {
+            const amount = document.getElementById('payment-amount').value;
+            const method = document.getElementById('payment-method').value;
+            
+            const modalBody = document.getElementById('payment-confirmation-body');
+            modalBody.innerHTML = `
+                <p>Please confirm your payment details:</p>
+                <p><strong>Amount:</strong> ${amount}</p>
+                <p><strong>Method:</strong> ${method}</p>
+                ${method === 'Credit/Debit Card' ? 
+                    `<p><strong>Card:</strong> **** **** **** ${document.getElementById('card-number').value.slice(-4)}</p>` : 
+                    ''
+                }
+                <p>Once confirmed, this payment will be processed immediately.</p>
+            `;
+            
+            elements.paymentConfirmationModal.style.display = 'flex';
+        }
+
+        // Process Payment
+        function processPayment() {
+            const amount = parseFloat(document.getElementById('payment-amount').value.replace('₱', '').replace(',', ''));
+            const method = document.getElementById('payment-method').value;
+            
+            // Update financial data
+            state.financial.balance -= amount;
+            state.financial.paymentStatus = state.financial.balance > 0 ? 'Partial Payment' : 'Paid in Full';
+            
+            // Add to payment history
+            const today = new Date();
+            const formattedDate = today.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            
+            state.financial.paymentHistory.unshift({
+                date: formattedDate,
+                description: 'Fall 2023 Tuition - Additional Payment',
+                amount: amount,
+                method: method,
+                status: 'Completed'
+            });
+            
+            // Update invoice
+            state.financial.invoice = state.financial.invoice.map(item => {
+                if (item.description === 'Previous Payment') {
+                    return { ...item, amount: item.amount - amount };
+                } else if (item.description === 'Balance Due') {
+                    return { ...item, amount: state.financial.balance };
+                }
+                return item;
+            });
+            
+            // Update UI
+            updateFinancial();
+            updateDashboard();
+            
+            // Show success message
+            alert(`Payment of ${formatCurrency(amount)} processed successfully!`);
+            
+            // Close modal
+            elements.paymentConfirmationModal.style.display = 'none';
+            
+            // Switch back to invoice tab
+            document.querySelector('.tab[data-subtab="invoice"]').click();
+        }
+
+        // Update Student Profile
+        function updateStudentProfile() {
+            // Update state with form values
+            state.student.firstName = elements.firstName.value;
+            state.student.lastName = elements.lastName.value;
+            state.student.email = elements.profileEmail.value;
+            state.student.phone = elements.phone.value;
+            state.student.address = elements.address.value;
+            
+            // Update UI
+            updateDashboard();
+            
+            // Show success message
+            alert('Profile updated successfully!');
+        }
+
+        // Utility function to format currency
+        function formatCurrency(amount) {
+            return '₱' + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        }
+
+        // Loading functions
+        function showLoading() {
+            // Create loading element if it doesn't exist
+            if (!document.getElementById('loading-overlay')) {
+                const loadingOverlay = document.createElement('div');
+                loadingOverlay.id = 'loading-overlay';
+                loadingOverlay.style.position = 'fixed';
+                loadingOverlay.style.top = '0';
+                loadingOverlay.style.left = '0';
+                loadingOverlay.style.width = '100%';
+                loadingOverlay.style.height = '100%';
+                loadingOverlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+                loadingOverlay.style.display = 'flex';
+                loadingOverlay.style.justifyContent = 'center';
+                loadingOverlay.style.alignItems = 'center';
+                loadingOverlay.style.zIndex = '9999';
+                
+                const spinner = document.createElement('div');
+                spinner.className = 'spinner';
+                
+                loadingOverlay.appendChild(spinner);
+                document.body.appendChild(loadingOverlay);
+            } else {
+                document.getElementById('loading-overlay').style.display = 'flex';
+            }
+        }
+
+        function hideLoading() {
+            const loadingOverlay = document.getElementById('loading-overlay');
+            if (loadingOverlay) {
+                loadingOverlay.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
